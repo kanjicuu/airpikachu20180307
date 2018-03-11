@@ -1,0 +1,56 @@
+<nav class='grey darken-3'>
+  <div class="container">
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo">SonoLigo</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <% if (!user_signed_in?) %>
+          <li><%= link_to 'ログイン', new_user_session_path %></li>
+          <li><%= link_to '登録', new_user_registration_path %></li>
+        <% else %>
+          <li><%= link_to '楽器を登録する', new_room_path %></li>
+          <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">
+            <div class='chip white'>
+              <%= image_tag avatar_url(current_user) %>
+              <%= current_user.fullname %>
+            </div>
+            <i class="material-icons right">arrow_drop_down</i>
+          </a></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- PC時のdropdown  -->
+<ul id="dropdown1" class="dropdown-content">
+  <li><%= link_to 'プロフィールを編集', edit_user_registration_path %></li>
+  <li><%= link_to "自分のリスティングを確認", rooms_path %></li>
+  <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+</ul>
+
+<!-- スマホじのサイドバー -->
+<ul class="sidenav" id="mobile-demo">
+  <% if (!user_signed_in?) %>
+    <li><%= link_to 'ログイン', new_user_session_path %></li>
+    <li><%= link_to '登録', new_user_registration_path %></li>
+  <% else %>
+    <li><%= link_to 'プロフィールを編集', edit_user_registration_path %></li>
+    <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>  <% end %>
+</ul>
+
+<script>
+  $(".dropdown-trigger").dropdown();
+
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+
+
+  var elem = document.querySelector('.sidenav');
+  var instance = M.Sidenav.init(elem, options);
+
+  // Or with jQuery
+
+
+</script>

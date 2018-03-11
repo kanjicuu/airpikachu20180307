@@ -1,0 +1,44 @@
+<div class="row">
+  <%= render "rooms/room_menu" %>
+
+  <div class="col m9 s12">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title center-allign">基本情報</span>
+
+        <%= form_for @room do |f| %>
+
+          <div class="row">
+            <div class="col m6">
+              <div class="input-field">
+                <%= f.text_field :instrument , disabled: 'disabled'%>
+                <label class="active" >楽器</label>
+              </div>
+            </div>
+            <div class="col m6">
+              <div class="input-field">
+                <%= f.select :exp_years, [["1年", 1], ["2年", 2],["3年", 3], ["4年", 4],["5年", 5], ["6年", 6],["7年", 7], ["8年", 8],["9年", 9], ["10年", 10],["10年以上", 11]], prompt: "選択する。" %>
+                <label>経験歴</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="button-center">
+              <button class="btn waves-effect waves-light grey darken-1" type="submit" name="action" >更新する
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+    $('select').formSelect();
+  });
+</script>

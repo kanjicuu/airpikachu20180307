@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Airpikachu20180307</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/earlyaccess/sawarabigothic.css" rel="stylesheet" />
+
+
+  </head>
+
+  <body>
+ 
+    <%= render 'shared/navbar' %>
+    <%= render 'shared/message' %>
+
+
+    <div class="container">
+      <%= yield %>
+    </div>
+
+
+  </body>
+</html>

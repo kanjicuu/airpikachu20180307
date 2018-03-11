@@ -1,0 +1,138 @@
+<% @basic = !@room.instrument.blank? && !@room.exp_years.blank? %>
+
+<% @personal_info= !current_user.fullname.blank? && !current_user.description.blank? %>
+
+<% @teach_params = !@room.begginer.blank? || !@room.middle.blank? || !@room.expert.blank? && !@room.price.blank? && @room.teach_years.blank? && @room.youtube1.blank? %>
+
+<% @teach_info = !current_user.fullname.blank? && !current_user.description.blank? && !current_user.belong.blank? && !current_user.award.blank?  %>
+
+
+
+<div class="col m3 s12">
+  <ul class="collection">
+    <li class= "collection-item <%= 'grey darken-1' if action_name == "basic" %>">
+      <div>
+        <%= link_to "基本情報", basic_room_path, class: " #{'white-text' if action_name == "basic" } #{'grey-text text-darken-1' if action_name != "basic" } " %>
+        <a class="secondary-content">
+          <% if @basic == true %>
+            <i class="material-icons cyan-text">check</i>
+          <% else %>
+            <i class="material-icons deep-orange-text">clear</i>
+          <% end %>
+        </a>
+      <div>
+    </li>
+
+    <% if !@room.teacher_apply %>
+      <li class= "collection-item <%= 'grey darken-1' if action_name == "personalinfo" %>">
+        <div>
+          <%= link_to "個人情報", personalinfo_room_path, class: " #{'white-text' if action_name == "personalinfo" } #{'grey-text text-darken-1' if action_name != "personalinfo" } " %>
+          <a class="secondary-content">
+            <% if @personal_info %>
+              <i class="material-icons cyan-text">check</i>
+            <% else %>
+              <i class="material-icons deep-orange-text">clear</i>
+            <% end %>
+          </a>
+        <div>
+      </li>
+    <% end %>
+
+    <li class= "collection-item <%= 'grey darken-1' if action_name == "photo_upload" %>">
+      <div>
+        <%= link_to "写真", photo_upload_room_path, class: " #{'white-text' if action_name == "photo_upload" } #{'grey-text text-darken-1' if action_name != "photo_upload" } " , data: { turbolinks: false } %>
+        <a class="secondary-content">
+          <% if !@room.roomphotos.blank? && @room.teacher_apply %>
+            <i class="material-icons cyan-text">check</i>
+          <% elsif @room.roomphotos.blank? && @room.teacher_apply %>
+            <i class="material-icons deep-orange-text">clear</i>
+          <% end %>
+        </a>
+      <div>
+    </li>
+
+    <li class= "collection-item <%= 'grey darken-1' if action_name == "youtube" %>">
+      <div>
+        <%= link_to "YouTube", youtube_room_path, class: " #{'white-text' if action_name == "youtube" } #{'grey-text text-darken-1' if action_name != "youtube" } " %>
+        <a class="secondary-content">
+          <% if !@room.youtube1.blank? && @room.teacher_apply %>
+            <i class="material-icons cyan-text">check</i>
+          <% elsif @room.youtube1.blank? && @room.teacher_apply %>
+            <i class="material-icons deep-orange-text">clear</i>
+          <% end %>
+        </a>
+      <div>
+    </li>
+
+    <li class= "collection-item <%= 'grey darken-1' if action_name == "teacher" %>">
+      <div>
+        <%= link_to "先生になるには", teacher_room_path, class: " #{'white-text' if action_name == "teacher" } #{'grey-text text-darken-1' if action_name != "teacher" } " %>
+        <a class="secondary-content">
+          <% if @teach_params && @room.teacher_apply %>
+            <i class="material-icons cyan-text">check</i>
+          <% elsif  !@teach_params && @room.teacher_apply %>
+            <i class="material-icons deep-orange-text">clear</i>
+          <% end %>
+        </a>
+      <div>
+    </li>
+
+    <% if @room.teacher_apply == true  %>
+      <li class= "collection-item <%= 'grey darken-1' if action_name == "teacherinfo" %>">
+        <div>
+          <%= link_to "個人情報", teacherinfo_room_path, class: " #{'white-text' if action_name == "teacherinfo" } #{'grey-text text-darken-1' if action_name != "teacherinfo" } " %>
+          <a class="secondary-content">
+          <% if @teach_info == true %>
+            <i class="material-icons cyan-text">check</i>
+          <% else %>
+            <i class="material-icons deep-orange-text">clear</i>
+          <% end %>
+        </a>
+      <div>
+      </li>
+    <% end %>
+  </ul>   
+
+
+  <div class="row button-center">
+    <!-- 生徒用 -->
+    <% if !@room.teacher_apply  && !@room.active && @basic && @personal_info %>
+      <%= form_for @room do |f| %>
+        <%= f.hidden_field :active, value: true %>
+        <button class="btn waves-effect waves-light cyan" type="submit" name="action" >公開する
+          <i class="material-icons right">public</i>
+        </button>      
+      <% end %>
+    <% end %>
+
+    <% if @room.active %>
+      <%= form_for @room do |f| %>
+        <%= f.hidden_field :active, value: false %>
+        <button class="btn waves-effect waves-light deep-orange" type="submit" name="action" >公開をやめる
+          <i class="material-icons right">public</i>
+        </button>
+      <% end %>
+    <% end %>
+
+    <!-- teacher_applyの申請が通る前。 -->
+    <% if @room.teacher_apply && !@room.teacher_auth && @teach_params && @teach_info %>
+      <%= link_to "先生として公開する審査へ。", root_path,  class: "btn waves-effect waves-light cyan" %>
+    <% end %>
+
+
+    <!-- teacher_applyの申請が通った後。 -->
+    <% if @room.teacher_apply == true && @room.teacher_auth == true && @room.active == false  %>
+      <%= form_for @room do |f| %>
+        <%= f.hidden_field :active, value: true %>
+        <button class="btn waves-effect waves-light cyan" type="submit" name="action" >先生として公開する
+              <i class="material-icons right">public</i>
+        </button>
+      <% end %>
+    <% end %>
+  </div>
+
+</div>
+
+
+
+

@@ -1,0 +1,73 @@
+<div class="row">
+  <%= render "rooms/room_menu" %>
+
+  <div class="col m9 s12">
+
+    <p>先生として登録するために、以下のユーザー情報を全て登録する必要があります。</p>
+
+    <ul class="collapsible">
+      <li>
+        <div class="collapsible-header">
+          <% unless @user.fullname.blank? %>
+            <i class="material-icons cyan-text">check</i>
+          <% else %>
+            <i class="material-icons deep-orange-text">clear</i>
+          <% end %>
+          名前
+        </div>
+        <div class="collapsible-body"><span><%= @user.fullname %></span></div>
+      </li>
+
+      <li>
+        <div class="collapsible-header">
+          <% unless @user.description.blank? %>
+            <i class="material-icons cyan-text">check</i>
+          <% else %>
+            <i class="material-icons deep-orange-text">clear</i>
+          <% end %>
+          自己紹介
+        </div>
+        <div class="collapsible-body"><span><%= @user.description %></span></div>
+      </li>
+
+      <li>
+        <div class="collapsible-header">
+          <% unless @user.belong.blank? %>
+            <i class="material-icons cyan-text">check</i>
+          <% else %>
+            <i class="material-icons deep-orange-text">clear</i>
+          <% end %>
+          所属歴
+        </div>
+        <div class="collapsible-body"><span><%= @user.belong %></span></div>
+      </li>
+
+      <li>
+        <div class="collapsible-header">
+          <% unless @user.award.blank? %>
+            <i class="material-icons cyan-text">check</i>
+          <% else %>
+            <i class="material-icons deep-orange-text">clear</i>
+          <% end %>
+          受賞歴
+        </div>
+        <div class="collapsible-body"><span><%= @user.award %></span></div>
+      </li>
+    </ul>
+
+    <div class="row">
+      <div class="button-center">
+        <%= link_to  edit_user_registration_path, class: 'btn waves-effect waves-light grey darken-1' do %>
+          <span>プロフィールを編集する</span><i class="material-icons right">send</i>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+</script>

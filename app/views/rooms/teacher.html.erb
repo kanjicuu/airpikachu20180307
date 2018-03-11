@@ -1,0 +1,124 @@
+<div class="row">
+  <%= render "rooms/room_menu" %>
+
+  <div class="col m9 s12">
+
+    <%= form_for @room do |f| %>
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title center-align teal-text text-darken-2">先生の情報</span>
+
+          <div class="row button-center">
+            <div class="switch">
+              <p>先生になる。</p>
+              <label>
+                Off
+                <%= f.check_box :teacher_apply %>
+                <span class="lever"></span>
+                On
+              </label>
+            </div>
+          </div> 
+
+          <div class="row">
+            <div class="button-center">
+              <button class="btn waves-effect waves-light grey darken-1" type="submit" name="action" >更新する
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <% if @room.teacher_apply == true %>
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title center-align teal-text text-darken-2">先生の情報</span>
+          <br>
+            <div class="row">
+              <p>先生として登録するためには、全ての情報を入力する必要があります。</p>
+            </div>
+
+            <div class="row">
+              <div class="col s12 m6">
+                <div class="input-field">
+                  <%= f.text_field :price ,placeholder:':円'  %>
+                  <label class="active">値段</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col s12 m4">
+                <h5>指導年数</h5>
+                <div class="input-field">
+                  <%= f.select :teach_years, [["1年", 1], ["2年", 2],["3年", 3], ["4年", 4],["5年", 5], ["6年", 6],["7年", 7], ["8年", 8],["9年", 9], ["10年", 10],["10年以上", 11]], prompt: "選択する。" %>
+                  <label>指導歴</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col s12 m6">
+                <h5>指導可能レベル</h5>
+                <p>少なくとも一つチェックしてください。</p>
+                <p>
+                  <label>
+                    <%= f.check_box :begginer, class: "filled-in" %>
+                    <span>初級者</span>
+                  </label>
+                </p>
+
+                <p>
+                  <label>
+                    <%= f.check_box :middle, class: "filled-in" %>
+                    <span>中級者</span>
+                  </label>
+                </p>
+
+                <p>
+                  <label>
+                    <%= f.check_box :expert, class: "filled-in" %>
+                    <span>上級者</span>
+                  </label>
+                </p>
+              </div>  
+
+              <div class="col s12">
+                <h5>Youtube</h5>
+                <div class="input-field">
+                  <%= f.text_field :youtube1 %>
+                  <label class="active">Youtube</label>
+                </div>
+
+                <% unless @room.youtube1.blank? %>
+                  <% @youtube1_embed = @room.youtube1.gsub("watch?v=","embed/") %>
+                  <div class="video-container" >
+                    <iframe src="<%= @youtube1_embed %>" frameborder="0" allowfullscreen></iframe>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          
+            <div class="row">
+              <div class="button-center">
+                <button class="btn waves-effect waves-light grey darken-1" type="submit" name="action" >更新する
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+    $('select').formSelect();
+  });
+</script>

@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  instrument: MyString
+  summary: MyText
+  teach_years: 1
+  exp_years: 1
+  price: 1
+  youtube1: MyString
+  youtube2: MyString
+  youtube3: MyString
+  begginer: false
+  middle: false
+  expert: false
+  user: one
+
+two:
+  instrument: MyString
+  summary: MyText
+  teach_years: 1
+  exp_years: 1
+  price: 1
+  youtube1: MyString
+  youtube2: MyString
+  youtube3: MyString
+  begginer: false
+  middle: false
+  expert: false
+  user: two

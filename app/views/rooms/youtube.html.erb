@@ -1,0 +1,68 @@
+<div class="row">
+  <%= render "rooms/room_menu" %>
+
+  <div class="col m9 s12">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title center-allign">Youtube</span>
+
+        <%= form_for @room do |f| %>
+
+          <div class="row">
+            <div class="col s12">
+              <div class="input-field">
+                <%= f.text_field :youtube1 %>
+                <label class="active">Youtube</label>
+              </div>
+        
+              <% unless @room.youtube1.blank? %>
+                <% @youtube1_embed = @room.youtube1.gsub("watch?v=","embed/") %>
+                <div class="video-container" >
+                  <iframe src="<%= @youtube1_embed %>" frameborder="0" allowfullscreen></iframe>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="col s12">
+              <div class="input-field">
+                <%= f.text_field :youtube2 %>
+                <label class="active">Youtube</label>
+              </div>
+
+              <% unless @room.youtube2.blank? %>
+                <% @youtube2_embed = @room.youtube2.gsub("watch?v=","embed/") %>
+                <div class="video-container" >
+                  <iframe src="<%= @youtube2_embed %>" frameborder="0" allowfullscreen></iframe>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="col s12">
+              <div class="input-field">
+                <%= f.text_field :youtube3 %>
+                <label class="active">Youtube</label>
+              </div>
+
+              <% unless @room.youtube3.blank? %>
+                <% @youtube3_embed = @room.youtube3.gsub("watch?v=","embed/") %>
+                <div class="video-container" >
+                  <iframe src="<%= @youtube3_embed %>"  frameborder="0" allowfullscreen></iframe>
+                </div>
+              <% end %>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="button-center">
+              <button class="btn waves-effect waves-light grey darken-1" type="submit" name="action" >更新する
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
