@@ -1,6 +1,7 @@
 class Room < ApplicationRecord
   belongs_to :user
   has_many :roomphotos
+  has_many :reservations
 
   validates :instrument, presence: true
 

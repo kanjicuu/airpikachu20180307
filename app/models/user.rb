@@ -9,7 +9,9 @@ class User < ApplicationRecord
   validates :webpage, format: /\A#{URI::regexp(%w(http https))}\z/ , if: :should_validate_webpage?
   validates :blog, format: /\A#{URI::regexp(%w(http https))}\z/ , if: :should_validate_blog?
 
-  has_many :rooms   
+  has_many :rooms 
+  has_many :reservations
+  
 
   def should_validate_webpage?
     new_record? || webpage.present?

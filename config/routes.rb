@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       get 'teacher'
       get 'teacherinfo'
     end
+    resources :reservations, only: [:create]
   end
 
   resources :roomphotos, only: [:create, :destroy] do

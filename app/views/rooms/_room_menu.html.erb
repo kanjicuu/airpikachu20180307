@@ -2,11 +2,11 @@
 
 <% @personal_info= !current_user.fullname.blank? && !current_user.description.blank? %>
 
-<% @teach_params = !@room.begginer.blank? || !@room.middle.blank? || !@room.expert.blank? && !@room.price.blank? && @room.teach_years.blank? && @room.youtube1.blank? %>
+<% @room_params =  !@room.begginer.blank? || !@room.middle.blank? || !@room.expert.blank? %>
+
+<% @teach_params = @room_params && !@room.price.blank? && !@room.teach_years.blank? && !@room.youtube1.blank? && !@room.roomphotos.blank? %>
 
 <% @teach_info = !current_user.fullname.blank? && !current_user.description.blank? && !current_user.belong.blank? && !current_user.award.blank?  %>
-
-
 
 <div class="col m3 s12">
   <ul class="collection">
@@ -77,6 +77,8 @@
       <div>
     </li>
 
+
+
     <% if @room.teacher_apply == true  %>
       <li class= "collection-item <%= 'grey darken-1' if action_name == "teacherinfo" %>">
         <div>
@@ -95,6 +97,7 @@
 
 
   <div class="row button-center">
+
     <!-- 生徒用 -->
     <% if !@room.teacher_apply  && !@room.active && @basic && @personal_info %>
       <%= form_for @room do |f| %>

@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card-content">
+    <p class="red-text text-darken-4"><i class="material-icons tiny  red-text text-darken-4">star</i><%= @user.fullname %>さんは先生として認証済みです。</p>
+  </div>
+  <div class="card-tabs">
+    <ul class="tabs tabs-fixed-width">
+      <% if @room.begginer %>
+        <li class="tab"><a href="#level1">初心者</a></li>
+      <% end %>
+      <% if @room.middle %>
+        <li class="tab"><a href="#level2">中級者</a></li>
+      <% end %>
+      <% if @room.expert %>
+        <li class="tab"><a href="#level3">上級者</a></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="card-content grey lighten-4">
+    <% if @room.begginer %>
+      <div id="level1">初心者を指導可能です。</div>
+    <% end %>
+    <% if @room.middle %>
+      <div id="level2">中級者を指導可能です。</div>
+    <% end %>
+    <% if @room.expert %>
+      <div id="level3">上級者を指導可能です。</div>
+    <% end %>
+  </div>
+  <div class="card-content">
+    <p>曲を送って、詳細なアドバイスをもらいましょう。</p>
+
+    <%= form_for([@room, @room.reservations.new]) do |f| %>
+      <div class="row">
+        <div class="button-center">
+          <button class="btn waves-effect waves-light grey darken-1" type="submit" name="action" >アドバイスを申し込む。
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

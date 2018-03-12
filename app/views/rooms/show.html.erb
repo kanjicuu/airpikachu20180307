@@ -1,0 +1,67 @@
+<!-- Image -->
+<div class="row">
+  <div class="col s12">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <% @photos.each do |photo| %>
+          <div class="swiper-slide">
+            <img src='<%= photo.image.url(:slider) %>)' />
+          </div>
+        <% end %>
+      </div>
+
+      <div class="swiper-pagination"></div>      
+      <div class="swiper-button-prev "></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>  
+</div>
+<br/>
+
+
+
+<div class="row">
+  <div class="col m12 l8">
+    <ul class="collection with-header z-depth-1">
+      <li class="collection-header"><h5><%= @user.fullname %></h5><%= @room.instrument %></li>
+      <li class="collection-item"><%= @user.description %></li>
+      <li class="collection-item">所属</li>
+      <li class="collection-item"><p><%= @user.belong %></p></li>
+      <li class="collection-item">受賞歴</li>
+      <li class="collection-item"><p><%= @user.award %></p></li>
+    </ul>
+  </div>
+
+  <div class="col m12 l4 ">
+    <% if @room.teacher_auth && @room.active && @room.teacher_apply %>
+      <%= render 'reservations/form' %>
+    <% end %>
+  </div>
+</div>
+
+<script>
+    var swiper = new Swiper('.swiper-container', {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      centeredSlides: true,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+</script>
+
+<script>
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+
+  $(document).ready(function(){
+    $('.tabs').tabs();
+  });
+</script>
