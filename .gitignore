@@ -13,8 +13,8 @@ vendor/bundle
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
-public/system/roomphotos
-public/uploads/reservation
+public/system/roomphotos/
+public/uploads/reservation/
 
 
 # Ignore all logfiles and tempfiles.
