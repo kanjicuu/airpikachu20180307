@@ -20,7 +20,7 @@
             <i class="material-icons deep-orange-text">clear</i>
           <% end %>
         </a>
-      <div>
+      </div>
     </li>
 
     <% if !@room.teacher_apply %>
@@ -34,7 +34,7 @@
               <i class="material-icons deep-orange-text">clear</i>
             <% end %>
           </a>
-        <div>
+        </div>
       </li>
     <% end %>
 
@@ -48,7 +48,7 @@
             <i class="material-icons deep-orange-text">clear</i>
           <% end %>
         </a>
-      <div>
+      </div>
     </li>
 
     <li class= "collection-item <%= 'grey darken-1' if action_name == "youtube" %>">
@@ -61,7 +61,7 @@
             <i class="material-icons deep-orange-text">clear</i>
           <% end %>
         </a>
-      <div>
+      </div>
     </li>
 
     <li class= "collection-item <%= 'grey darken-1' if action_name == "teacher" %>">
@@ -74,7 +74,7 @@
             <i class="material-icons deep-orange-text">clear</i>
           <% end %>
         </a>
-      <div>
+      </div>
     </li>
 
 
@@ -84,13 +84,13 @@
         <div>
           <%= link_to "個人情報", teacherinfo_room_path, class: " #{'white-text' if action_name == "teacherinfo" } #{'grey-text text-darken-1' if action_name != "teacherinfo" } " %>
           <a class="secondary-content">
-          <% if @teach_info == true %>
-            <i class="material-icons cyan-text">check</i>
-          <% else %>
-            <i class="material-icons deep-orange-text">clear</i>
-          <% end %>
-        </a>
-      <div>
+            <% if @teach_info == true %>
+              <i class="material-icons cyan-text">check</i>
+            <% else %>
+              <i class="material-icons deep-orange-text">clear</i>
+            <% end %>
+          </a>
+        </div>
       </li>
     <% end %>
   </ul>   
@@ -124,11 +124,31 @@
 
 
     <!-- teacher_applyの申請が通った後。 -->
-    <% if @room.teacher_apply == true && @room.teacher_auth == true && @room.active == false  %>
+    <% if @room.teacher_apply && @room.teacher_auth && !@room.active  %>
       <%= form_for @room do |f| %>
         <%= f.hidden_field :active, value: true %>
         <button class="btn waves-effect waves-light cyan" type="submit" name="action" >先生として公開する
               <i class="material-icons right">public</i>
+        </button>
+      <% end %>
+    <% end %>
+
+    <% if @room.teacher_apply && !@room.teacher_auth %>
+      本来ここは、サイト上では見せないが、いまは簡略化のため。
+      <%= form_for @room do |f| %>
+        <%= f.hidden_field :teacher_auth, value: true %>
+        <button class="btn waves-effect waves-light cyan" type="submit" name="action" >先生として許可する。
+              <i class="material-icons right">star</i>
+        </button>
+      <% end %>
+    <% end %>
+
+    <% if @room.teacher_apply && @room.teacher_auth %>
+      本来ここは、サイト上では見せないが、いまは簡略化のため。
+      <%= form_for @room do |f| %>
+        <%= f.hidden_field :teacher_auth, value: false %>
+        <button class="btn waves-effect waves-light cyan" type="submit" name="action" >先生として不許可にする。
+              <i class="material-icons right">star</i>
         </button>
       <% end %>
     <% end %>

@@ -26,6 +26,17 @@ Rails.application.routes.draw do
     resources :reservations, only: [:create]
   end
 
+  # 先生と生徒だけが見れるように。
+  resources :reservations, only: [:show]
+
+  get '/advices' => 'reservations#advices'
+  get '/reservations' => 'reservations#reservations'  
+
+  resources :teacher_reviews, only: [:create, :destroy]
+  resources :student_reviews, only: [:create, :destroy]
+  
+
+
   resources :roomphotos, only: [:create, :destroy] do
     collection do
       get :list 

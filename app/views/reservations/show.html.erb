@@ -1,0 +1,666 @@
+<div class="row">
+  <div class="col s12">
+    <div class="card-panel z-depth-1">
+      <div class="row valign-wrapper">
+        <div class="col s4 ">
+          <div class="button-center">
+          <%= image_tag avatar_url(@student),class: "circle responsive-img" %>
+          </div>
+          <p class="button-center"><%= @student.fullname %></p>
+        </div>
+        <div class="col s4">
+          <div class="button-center">
+            <i class="material-icons teal-text large">arrow_forward</i>
+          </div>
+          <div class="button-center">
+            <p class="center-align"><%= @reservation.created_at.strftime('%Y年%m月%d日') %></p>
+          </div>
+        </div>
+        <div class="col s4">
+          <div class="button-center">
+          <%= image_tag avatar_url(@teacher),class: "circle responsive-img" %>
+          </div>
+          <p class="button-center"><%= @teacher.fullname %></p>
+        </div>
+      </div>
+      <hr>
+
+      <div class="row">
+        <div class ='col s3'>
+          <p class="button-center">曲名</p>
+        </div>
+        <div class ='col s9'>
+          <p class="button-center"><%= @reservation.title %></p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class ='col s3'>
+          <p class="button-center">内容</p>
+        </div>
+        <div class ='col s9'>
+          <p class="button-center"><%= @reservation.content %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <div class="card-panel">
+        <p id="subtitle" class="center-align">&nbsp;</p>
+    </div>
+  </div>
+
+  <div class="col s12">
+      <div id="waveform">
+          <!-- Here be waveform -->
+      </div>
+      <div id="wave-timeline"></div>
+  </div>
+
+  <div class="col s12">
+      <div id="wave-timeline"></div>
+  </div>
+
+  <div class="col s1 center-align">
+    <i class="material-icons">zoom_in</i>
+  </div>
+
+  <div class="col s10 center-align">
+    <input id="slider" type="range" min="1" max="200" value="25" style="width: 100%" />
+  </div>
+
+  <div class="col s1 center-align">
+    <i class="material-icons">zoom_out</i>
+  </div>
+
+  <div class="row" style="margin: 30px 0">
+    <div class="col s8 m4">
+      <h5>下の説明をお読みください。</h5>
+    </div>
+
+    <div class="col s4 m2">
+      <a class="waves-effect waves-light btn-large red lighten-1" data-action="play">
+          <span id="play">
+              <i class="large material-icons">play_arrow</i>
+          </span>
+
+          <span id="pause" style="display: none">
+              <i class="medium material-icons">pause</i>
+          </span>
+      </a>
+    </div>
+
+    <div class="col s6 m3 ">
+      <a class="waves-effect waves-light btn-large grey darken-2" data-action="export" title="Export annotations to JSON" id = 'export'>
+          <i class="material-icons left">cloud</i>書き出し
+      </a>
+    </div>
+
+    <div class="col s6 m3">
+      <a class="waves-effect waves-light btn-large grey darken-2" href="mailto:sonoligo@gmail.com?subject=SonoLigo DEMO&amp;body=ご協力ありがとうございました。メールにデータを添付して送信、ご意見ご感想をお願い致します。">
+          <i class="material-icons left">mail</i>メール
+      </a>
+    </div>
+  </div>
+</div>
+
+ <!--
+     ************************
+    ここから編集フォーム -->
+<div class="row">
+  <form  role="form" name="edit" style="opacity: 0; transition: opacity 100ms linear; margin: 30px 0;">
+          <!-- opacity: 0;で透明化　 -->
+    <div class="col s12">
+      <div class="card-panel z-depth-3">
+        <div class="input-field col s6">
+          <label class="active" for="start">開始時間(秒)</label>
+          <input  id="start" name="start" />
+        </div>
+
+        <div class="input-field col s6">
+          <label class="active" for="end">終了時間(秒)</label>
+          <input  id="end" name="end" />
+        </div>
+
+        
+        
+        <label class = "control-label" for="label">ラベル</label>
+        <div class="col s12">
+          <form action="#">
+            <div class="col m4">
+              <p>音程</p>
+              <p>
+                <label>
+                    <input name="advice" type="radio" id="1" value="1" />
+                    <span>音程が高い</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                    <input name="advice" type="radio" id="2" value="2"/>
+                    <span>音程が低い</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                    <input name="advice" type="radio" id="3" value="3"/>
+                    <span>音程が不安定</span>
+                </label>
+              </p>
+            </div>
+
+            <div class="col m4">
+              <p>技術</p>
+              <p>
+                <label>
+                    <input name="advice" type="radio" id="4" value="4" />
+                    <span>音が大きい</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                    <input name="advice" type="radio" id="5" value="5"/>
+                    <span>音が小さい</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                    <input name="advice" type="radio" id="6" value="6"/>
+                    <span>バランスが悪い</span>
+                </label>
+              </p>
+            </div>
+
+            <div class="col m4">
+              <p>表現</p>
+              <p>
+                <label>
+                  <input name="advice" type="radio" id="7" value="7" />
+                  <span>ていねいに</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <input name="advice" type="radio" id="8" value="8"/>
+                  <span>軽やかに</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <input name="advice" type="radio" id="9" value="9"/>
+                  <span>重たい</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <input name="advice" type="radio" id="10" value="10"/>
+                  <span>テンポ感を持って</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <input name="advice" type="radio" id="6" value="6"/>
+                  <span>気持ちをこめて</span>
+                </label>
+              </p>
+            </div>
+
+            <div class="col m4">
+              <p>その他</p>
+              <p>
+                <label>
+                    <input name="advice" type="radio" id="0" value="0" />
+                    <span>その他</span>
+                </label>
+              </p>
+            </div>
+
+          </form>
+        </div>
+
+       
+
+        <div class="row">       
+          <div class="input-field col s12">
+            <label class = 'active' for="note">コメント</label>
+            <textarea class="materialize-textarea" id="note"  rows="3" name="note"></textarea>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <center>
+            <button type="submit" class="waves-effect waves-light btn-large  light-blue darken-4">保存</button>
+       
+            または
+
+            <button type="button" class="waves-effect waves-light btn-large  amber darken-4" data-action="delete-region">削除</button>       
+          </center>
+        </div>
+      </div>
+    </div>
+  </form> 
+</div>
+
+
+
+<script>
+    //delete localStorage;
+    // trivial.js**********************************
+    var wavesurfer = window.wavesurfer;
+
+    var GLOBAL_ACTIONS = {
+        play: function() {
+            wavesurfer.playPause();
+        },
+
+        back: function() {
+            wavesurfer.skipBackward();
+        },
+
+        forth: function() {
+            wavesurfer.skipForward();
+        },
+
+        'toggle-mute': function() {
+            wavesurfer.toggleMute();
+        }
+    };
+
+
+
+    // Bind actions to buttons and keypresses
+    document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('keydown', function(e) {
+            var map = {
+                32: 'play', // space
+                37: 'back', // left
+                39: 'forth' // right
+            };
+            var action = map[e.keyCode];
+            if (action in GLOBAL_ACTIONS) {
+                if (document == e.target || document.body == e.target) {
+                    e.preventDefault();
+                }
+                GLOBAL_ACTIONS[action](e);
+            }
+        });
+
+        [].forEach.call(document.querySelectorAll('[data-action]'), function(el) {
+            el.addEventListener('click', function(e) {
+                var action = e.currentTarget.dataset.action;
+                if (action in GLOBAL_ACTIONS) {
+                    e.preventDefault();
+                    GLOBAL_ACTIONS[action](e);
+                }
+            });
+        });
+    });
+
+// **********************************
+
+    /**
+     * Create a WaveSurfer instance.
+     */
+    var wavesurfer;
+    var global = [];
+
+    /**
+     * Init & load.
+
+     DOMContentLoaded = $(document).ready
+
+     */      
+    //console.log('initialize');  
+        var wavesurfer = WaveSurfer.create({
+            container: '#waveform',
+            waveColor: 'white',
+            progressColor: '#6495ED',
+            height: 350,
+            barWidth: 2,
+            normalize: true,
+            barHeight: 5,
+            pixelRation: 1,
+            scrollParent: true,
+            normalize: true,
+            minimap: true
+
+            // backend: 'MediaElemnt'
+            // pluginsを加えると
+            // plugins: [
+                // WaveSurfer.regions.create()
+            //     WaveSurfer.minimap.create({
+            //         height: 30,
+            //         waveColor: '#ddd',
+            //         progressColor: '#999',
+            //         cursorColor: '#999', 
+            //     }),
+            //     WaveSurfer.timeline.create({
+            //         container: '#wave-timeline'
+            //     })
+            // ]
+        }); 
+
+        //音源のロード　public下なら / から始めるよう。
+        wavesurfer.load("<%= @reservation.audio %>");
+
+        //timelineの表示
+        wavesurfer.on('ready', function () {
+          var timeline = Object.create(WaveSurfer.Timeline);
+
+          timeline.init({
+            wavesurfer: wavesurfer,
+            container: '#wave-timeline',
+            height: '30'
+          });
+        });
+
+        // zoom barの表示
+        var slider = document.querySelector('#slider');
+
+            slider.oninput = function () {
+              var zoomLevel = Number(slider.value);
+              wavesurfer.zoom(zoomLevel);
+        };
+
+            /* Regions追加している。 */
+
+        wavesurfer.on('ready', function() {
+            wavesurfer.enableDragSelection({
+                color: randomColor(0.2)
+
+            });
+
+            console.log('add region');
+
+            // if (localStorage.regions) {
+            //     loadRegions(JSON.parse(localStorage.regions));
+            //     console.log('load localStorage...');
+            // } else {
+                // loadRegions(
+                //     extractRegions(
+                //         wavesurfer.backend.getPeaks(512),
+                //         wavesurfer.getDuration()
+                //     )
+                // );
+                wavesurfer.util
+                    .ajax({
+                        responseType: 'json',
+                        url: '/annotations.json'
+                    })
+                    .on('success', function(data) {
+                        localStorage.clear();
+                        console.log("before load localStorage.regions", localStorage.regions);
+                        loadRegions(data);
+                        saveRegions();
+                        //console.log(data);
+                        global = data;
+
+                        console.log("after load localStorage.regions", localStorage);
+                    });
+            // }
+        });
+
+
+        /* Toggle play/pause buttons. */
+        var playButton = document.querySelector('#play');
+        var pauseButton = document.querySelector('#pause');
+        wavesurfer.on('play', function() {
+            playButton.style.display = 'none';
+            pauseButton.style.display = '';
+        });
+        wavesurfer.on('pause', function() {
+            playButton.style.display = '';
+            pauseButton.style.display = 'none';
+        });
+
+
+
+    // regionをclickしたら、annotationを編集する画面が出るようにする。
+    wavesurfer.on('region-click', editAnnotation);
+    //regionをupdate or removeしたらsaveregions関数が発動。region-updated新しいのが追加されたときかな
+    wavesurfer.on('region-updated', saveRegions);
+    wavesurfer.on('region-removed', saveRegions);
+    wavesurfer.on('region-in', showNote);
+    wavesurfer.on('region-out', hiddenNote);
+
+    /**
+     * Edit annotation for a region.
+     */
+    function editAnnotation(region) {
+
+        console.log('edit annotation');
+        // console.log(region);
+        //console.log(document.forms.edit.elements);
+
+        var form = document.forms.edit;
+        form.style.opacity = 1;//透明にしない？
+
+        console.log('advice value', form.elements.advice.value);
+        console.log('region.data.advice', region.data.advice);
+
+
+        //ここでadvice.valueの値を取得し、ラジオボタンに反映。
+        // もっと綺麗な書き方があるはずや。
+        if(region.data.advice==null){
+            $('[name=advice][value=0]').prop('checked',false);
+            $('[name=advice][value=1]').prop('checked',false);
+            $('[name=advice][value=2]').prop('checked',false);
+            $('[name=advice][value=3]').prop('checked',false);
+            $('[name=advice][value=4]').prop('checked',false);
+            $('[name=advice][value=5]').prop('checked',false);
+            $('[name=advice][value=6]').prop('checked',false);
+            $('[name=advice][value=7]').prop('checked',false);
+            $('[name=advice][value=8]').prop('checked',false);
+            $('[name=advice][value=9]').prop('checked',false);
+            $('[name=advice][value=10]').prop('checked',false);
+            $('[name=advice][value=11]').prop('checked',false);
+        }
+        if(region.data.advice=="0"){
+            $('[name=advice][value=0]').prop('checked',true);
+        }
+        if(region.data.advice=="1"){
+            $('[name=advice][value=1]').prop('checked',true);
+        }
+        if(region.data.advice=="2"){
+            $('[name=advice][value=2]').prop('checked',true);
+        }
+        if(region.data.advice=="3"){
+            $('[name=advice][value=3]').prop('checked',true);
+        }
+        if(region.data.advice=="4"){
+            $('[name=advice][value=4]').prop('checked',true);
+        }
+        if(region.data.advice=="5"){
+            $('[name=advice][value=5]').prop('checked',true);
+        }
+        if(region.data.advice=="6"){
+            $('[name=advice][value=6]').prop('checked',true);
+        }
+        if(region.data.advice=="7"){
+            $('[name=advice][value=7]').prop('checked',true);
+        }
+        if(region.data.advice=="8"){
+            $('[name=advice][value=8]').prop('checked',true);
+        }
+        if(region.data.advice=="9"){
+            $('[name=advice][value=9]').prop('checked',true);
+        }
+        if(region.data.advice=="10"){
+            $('[name=advice][value=10]').prop('checked',true);
+        }
+        if(region.data.advice=="11"){
+            $('[name=advice][value=11]').prop('checked',true);
+        }
+
+
+
+        //0.1秒単位で丸め込んでる？
+        // ここはhtmlの各要素の表示されるためか。
+        (form.elements.start.value = Math.round(region.start * 10) / 10 ),
+        (form.elements.end.value = Math.round(region.end * 10) / 10);
+        //トオヤマカンジform.elements.advice.value = region.advice;    
+        form.elements.note.value = region.data.note || '';
+
+        console.log('save form element',form.elements);
+        console.log(form.elements.advice.value);
+
+        form.onsubmit = function(e) {
+            e.preventDefault();
+            //regionのもつデータがstart end dataらしいんだけど、これってどこに入ってる・
+            //label: form.elements.label.value,を追加
+            region.update({
+                start: form.elements.start.value,
+                end: form.elements.end.value,
+                data: {
+                    advice: form.elements.advice.value,
+                    note: form.elements.note.value
+                }
+            });
+            form.style.opacity = 0;
+        };
+        form.onreset = function() {
+            form.style.opacity = 0;
+            form.dataset.region = null;
+        };
+        form.dataset.region = region.id;
+    }
+
+
+
+     //ここに label: region.labelを追加
+    function saveRegions() {
+        console.log('save regions',localStorage.regions);
+
+        localStorage.regions = JSON.stringify(
+            Object.keys(wavesurfer.regions.list).map(function(id) {
+                var region = wavesurfer.regions.list[id];
+
+                console.log("save", region.data.advice);
+                return {
+                    start: region.start,
+                    end: region.end,
+                    //advice: region.advice,
+                    //attributes: region.attributes,
+                    data: region.data
+                };
+            })
+        );
+    }
+
+
+
+
+    /**
+     * Random RGBA color. alphaは透明度かな
+     */
+    function randomColor(alpha) {
+        return (
+            'rgba(' +
+            [
+                200,
+                0,
+                0,
+                alpha || 1
+            ] +
+            ')'
+        );
+    }
+
+    // function randomColor(alpha) {
+    //     return (
+    //         'rgba(' +
+    //         [
+    //             ~~(Math.random() * 255),
+    //             ~~(Math.random() * 255),
+    //             ~~(Math.random() * 255),
+    //             alpha || 1
+    //         ] +
+    //         ')'
+    //     );
+    // }
+
+    function setColor(alpha) {
+        return (
+            'rgba(' +
+            [
+                ~~(Math.random() * 255),
+                ~~(Math.random() * 255),
+                ~~(Math.random() * 255),
+                alpha || 1
+            ] +
+            ')'
+        );
+    }
+    /**
+     * Display annotation.
+     */
+    function showNote(region) {
+        if (!showNote.el) {
+            showNote.el = document.querySelector('#subtitle');
+        }
+        showNote.el.textContent = region.data.note || '–';
+    }
+
+    function loadRegions(regions) {
+        console.log('loadregions',regions);//ここではadvice読み込まれてる。
+        regions.forEach(function(region) {
+            region.color = randomColor(0.2);
+            wavesurfer.addRegion(region);
+        });
+    }
+
+    function showNote(region) {
+        if (!showNote.el) {
+            showNote.el = document.querySelector('#subtitle');
+        }
+        showNote.el.textContent = region.data.note || '–';
+    }
+
+
+    function hiddenNote(region) {
+        document.querySelector('#subtitle').textContent =  '–';
+    }
+    // $('#export').on('click', function() {
+    //     var fs = require('fs');
+    //     fs.writeFile('hoge.json', JSON.stringify(localStorage.regions, null, '    '));
+
+    // });
+
+    // export ボタン押したらデータダウンロード
+    //名前は　日付-r-id_t-id_s-id.json
+    jQuery("#export").click (function ()
+        {
+        const blob = new Blob([ localStorage.regions ], { "type" : "json" })
+        jQuery("<a></a>", {href: window.URL.createObjectURL(blob),
+            download: "SLdemo_1.json",
+            target: "_blank"})[0].click()
+        });
+
+
+    /**
+     * Bind controls.
+     */
+    window.GLOBAL_ACTIONS['delete-region'] = function() {
+        var form = document.forms.edit;
+        var regionId = form.dataset.region;
+        if (regionId) {
+            wavesurfer.regions.list[regionId].remove();
+            form.reset();
+        }
+    };
+
+
+    topBtn.click(function(){
+      $('body,html').animate({
+      scrollTop: 0},500);
+      return false;
+
+    });
+
+        
+      
+</script>

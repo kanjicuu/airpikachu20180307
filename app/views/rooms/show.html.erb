@@ -5,8 +5,8 @@
       <div class="swiper-wrapper">
         <% @photos.each do |photo| %>
           <div class="swiper-slide">
-            <img src='<%= photo.image.url(:slider) %>)' />
-          </div>
+            <img src='<%= photo.image.url(:slider) %>)'  class="responsive-img" />
+          </div> 
         <% end %>
       </div>
 
@@ -32,8 +32,17 @@
     </ul>
   </div>
 
+  <div class="col s12">
+    <h3>
+      <span id="average_rating"></span>
+    </h3>
+    <div class="col s12">
+      <div><%= render "reviews/student_list" %></div>
+    </div>
+  </div>
+
   <div class="col m12 l4 ">
-    <% if @room.teacher_auth && @room.active && @room.teacher_apply %>
+    <% if @room.teacher_auth && @room.active && @room.teacher_apply && current_user != @room.user %>
       <%= render 'reservations/form' %>
     <% end %>
   </div>

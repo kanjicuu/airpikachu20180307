@@ -1,0 +1,70 @@
+<% @teacher_check = false %>
+
+<% @rooms.each do |room| %>
+  <% if room.teacher_auth %>
+    <% @teacher_check = true %>
+  <% end %>
+<% end %>
+
+
+<div class="row">
+  <div class="col m3 s12">
+    <ul class="collection">
+      <li class= "collection-item <%= 'grey darken-1' if action_name == "advices" %>">
+        <div>
+          <%= link_to "アドバイス一覧", advices_path, class: " #{'white-text' if action_name == "advices" } #{'grey-text text-darken-1' if action_name != "advices" } " %>
+        </div>
+      </li>
+      <% if @teacher_check  %>
+        <li class= "collection-item <%= 'grey darken-1' if action_name == "reservations" %>">
+          <div>
+            <%= link_to "予約一覧", reservations_path, class: " #{'white-text' if action_name == "reservations" } #{'grey-text text-darken-1' if action_name != "reservations" } " %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="col m9 s12">
+    <div class="row">
+      <% @rooms.each do |room| %>
+        <% room.reservations.each do |reservation| %>
+          <div class="col m6 s12">
+            <div class="card ">
+              <div class="card-image">
+                <%= link_to room_path(reservation.room) do %>
+                  <%= image_tag reservation.room.cover_photo(:medium) %>
+                <% end %>
+              </div>
+              <div class="card-content">
+                <span class="center-align">
+                  <%= link_to user_path(reservation.user) do %>
+                    <div class="chip white">
+                      <%= image_tag avatar_url(reservation.user), class: "img-circle avatar-small" %>
+                      <%= reservation.user.fullname %>
+                    </div>
+                  <% end %>さんからの申し込み
+                </span>
+                <p class="right-align"><%= reservation.created_at.strftime('%Y年%m月%d日') %></p>
+              </div>
+              <div class="card-action">
+                <div class="button-center">
+                  <%= link_to  reservation_path(reservation), class: 'btn waves-effect waves-light grey darken-1' do %>
+                    <span>詳細を見る</span><i class="material-icons right">send</i>
+                  <% end %>
+                </div>
+                reservation id
+                <%= reservation.id %>
+                reservation.room.id
+                <%= reservation.room.id %>
+                <div class="text-right">
+                  <%= render partial: "reviews/teacher_form", locals: {reservation: reservation}   %>
+                </div>
+              </div>    
+            </div>   
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

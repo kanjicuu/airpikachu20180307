@@ -15,14 +15,14 @@
           <% unless room.roomphotos.blank? %>
             <%= image_tag room.cover_photo(:medium),class: "circle" %>
           <% else %>
-            <i class="material-icons circle">music_note</i></a>
+            <i class="material-icons circle">play_arrow</i></a>
           <% end %>
           <span class="title"><%= room.instrument %></span>
           <p>
             <%= link_to "内容を更新する", basic_room_path(room) %>
           </p>
           <% if room.teacher_auth == true %>
-            <a href="#!" class="secondary-content"><i class="material-icons medium yellow-text">stars</i></a>
+            <a href="#!" class="secondary-content"><i class="material-icons medium deep-orange-text text-darken-4">stars</i></a>
           <% end %>
         </li>
       <% end %>

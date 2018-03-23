@@ -26,6 +26,10 @@
 <ul id="dropdown1" class="dropdown-content">
   <li><%= link_to 'プロフィールを編集', edit_user_registration_path %></li>
   <li><%= link_to "自分のリスティングを確認", rooms_path %></li>
+  <li><%= link_to "自分の申し込みを確認", advices_path %></li>
+  <% if @teacher_check %>
+    <li><%= link_to "予約を確認", reservations_path %></li>
+  <% end %>
   <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
 </ul>
 

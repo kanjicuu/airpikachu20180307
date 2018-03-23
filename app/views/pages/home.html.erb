@@ -1,2 +1,91 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="row">
+  <div id="contenedor">
+    <div class="note center white_bold teal lighten-4" id="0">S</div>
+    <div class="note center white_bold teal lighten-3" id="1">o</div>
+    <div class="note center white_bold teal lighten-2" id="2">n</div>
+    <div class="note center white_bold teal lighten-1" id="3">o</div>
+    <div class="note center white_bold orange darken-3" id="4">L</div>
+    <div class="note center white_bold teal darken-1" id="5">i</div>
+    <div class="note center white_bold teal darken-2" id="6">g</div>
+    <div class="note center white_bold teal darken-3" id="7">o</div>
+  </div>
+
+  <div class="button-center">
+    <a class="waves-effect waves-light btn boton button-center grey darken-2"><i class="material-icons left">music_note</i>Play Music!</a>
+  </div>
+
+  <audio class="sonidos" src="//goo.gl/T1rxRG"></audio>
+  <audio class="sonidos" src="//goo.gl/KT8FN3"></audio>
+  <audio class="sonidos" src="//goo.gl/1SfsNS"></audio>
+  <audio class="sonidos" src="//goo.gl/OsOCXe"></audio>
+  <audio class="sonidos" src="//goo.gl/vukZmv"></audio>
+  <audio class="sonidos" src="//goo.gl/Bjd9KT"></audio>
+  <audio class="sonidos" src="//goo.gl/MS9HTp"></audio>
+  <audio class="sonidos" src="//goo.gl/ANMMwn"></audio>  
+</div>
+
+<div class="parallax-container">
+  <div class="parallax"><img src="/guitar-3214415_1280.jpg"></div>
+</div>
+<div class="section white">
+  <div class="row container">
+    <h2 class="header">Parallax</h2>
+    <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p>
+  </div>
+</div>
+<div class="parallax-container">
+  <div class="parallax"><img src="/guitar-3214415_1280.jpg"></div>
+</div>
+
+
+
+<script>
+
+  var notes  = [9, 
+  0, 5, 5, 3, 5, 4, 2, 4 ,4 ,5 , 7, 6, 5, 4, 2, 2, 3, 4, 7, 7, 5, 5, 3, 1, 3, 2, 1, 0];
+
+  var tempos = [2, 
+  1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 5, 1, 2, 1, 2, 1, 2, 1, 5, 1, 2, 1, 2, 1, 1];
+
+  var notas = $('.sonidos');// audioのクラス
+
+  $('.note').click(function() {
+    let num = parseInt(this.id);
+    tocar(num);//下の関数が実行
+  });
+
+  function tocar(num) {
+    notas[num].pause();
+    notas[num].currentTime = 0;
+    notas[num].play();
+    $("#" + num).css("box-shadow", "0px 0px 10px #fff");
+    setTimeout(function() {
+      $("#" + num).css("box-shadow", "none");
+    }, 300);
+  }
+
+
+
+
+  $('.boton').click(function() {
+    for (var x = 0, ln = notes.length; x < ln; x++) {
+      setTimeout(function(y) {
+        tocar(notes[y]);
+      }, ritmo(x) * 500, x);
+    }
+  });
+
+  function ritmo(num) {
+    suma = 0;
+    for (c = 0; c < num ; c++) {
+      suma = suma + tempos[c];
+    }
+    return suma;
+  }
+
+
+
+  $(document).ready(function(){
+    $('.parallax').parallax();
+  });
+</script>

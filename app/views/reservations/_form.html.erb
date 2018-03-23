@@ -28,15 +28,63 @@
   </div>
   <div class="card-content">
     <p>曲を送って、詳細なアドバイスをもらいましょう。</p>
+    <p><em><%= @room.price %>円/一曲あたりのアドバイス料</em></p>
+    <br>
 
-    <%= form_for([@room, @room.reservations.new]) do |f| %>
-      <div class="row">
-        <div class="button-center">
-          <button class="btn waves-effect waves-light grey darken-1" type="submit" name="action" >アドバイスを申し込む。
-            <i class="material-icons right">send</i>
-          </button>
-        </div>
+    <div class="row">
+      <div class="button-center">
+        <button class="btn waves-effect waves-light grey darken-1 modal-trigger" href="#modal1" >アドバイスを申し込む。
+          <i class="material-icons right">send</i>
+        </button>
       </div>
-    <% end %>
+    </div>
   </div>
 </div>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <%= form_for([@room, @room.reservations.new]) do |f| %>
+    <div class="modal-content">
+      <h4>予約前の確認</h4>
+      <p>先生に申し込む初めての場合は、事前に先生にメッセージをして曲目を確認しましょう。</p>
+      <br>
+      <div class="input-field">
+        <%= f.text_field :title, autofocus: true,required: true ,id: "title"%>
+        <label for="title">曲名</label>
+      </div>
+      <div class="input-field">
+        <%= f.text_area :content,required: true ,id: "content", class: "materialize-textarea"%>
+        <label for="content">内容の詳細</label>
+      </div>
+
+      <div class="file-field input-field">
+        <div class="btn grey darken-1 ">
+          <span>音声ファイルを選択</span>
+          <%= f.file_field  :audio, required: true  %>
+          <%= f.hidden_field :audio_cache %>
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+      </div>
+
+
+    </div>
+    <div class="modal-footer">
+      <div class="button-center">
+        <button class="btn waves-effect waves-light red darken-4" type="submit" name="action" >アドバイスを申し込む。
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+
+  $(document).ready(function(){
+    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+  });
+
+</script>

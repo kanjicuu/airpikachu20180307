@@ -1,29 +1,228 @@
 <div class="row">
-  <div class="col s12">
-    <div class="card horizontal z-depth-1">
-      <div class="card-image">
-        <%= image_tag avatar_url(@user) %>
-      </div>
-      <div class="card-stacked">
-        <div class="card-content">
-          <span class="card-title"><%= @user.fullname %></span>
+  <div class="card z-depth-1">
+    <div class="card-content">
+      <div class="row">
+        <div class="col s4">
+          <%= image_tag avatar_url(@user) ,class: "responsive-img" %>
+        </div>
+        <div class="col s8">
+          <span class="card-title" style="font-weight: bolder; font-size: xx-large;"><%= @user.fullname %></span>
           <%= @user.description %>
         </div>
       </div>
     </div>
-  </div>
-</div> 
-
-もっと楽器の紹介を見るとかしないとね。
-
-
-
-<div class="row">
-  <div class="col m3 s12">
     
+    <div class="card-tabs">
+      <ul class="tabs grey lighten-4">
+        <li class="tab col s3"><a class="active" href="#test1">一般</a></li>
+        <li class="tab col s3"><a href="#test2">メディア</a></li>
+        <li class="tab col s3"><a href="#test3">楽器</a></li>
+        <li class="tab col s3"><a href="#test4">SNS</a></li>
+      </ul>
+    </div>
+  </div>
+  <!-- 一般タブ -->
+  <div id="test1" class="col s12">
+    <ul class="collection with-header z-depth-1">
+      <li class="collection-item">所属</li>
+      <li class="collection-item"><p><%= @user.belong %></p></li>
+      <li class="collection-item">受賞歴</li>
+      <li class="collection-item"><p><%= @user.award %></p></li>
+    </ul>
+
+    <div class="row">  
+      <% @rooms.each do |room| %>
+        <div class="col m4 s12">
+          <%= link_to room_path(room), class: "black-text" do %>
+            <div class="card">
+              <ul class="collection">
+                <li class="collection-item ">
+                  <div>楽器<a class="secondary-content black-text valign-wrapper">
+                    <% if room.teacher_auth %>
+                      <i class="material-icons deep-orange-text text-darken-4">stars</i>
+                    <% end %>
+                    <%= room.instrument %></a>
+                  </div>
+                </li>
+
+                <li class="collection-item">
+                  <div>経験歴<a class="secondary-content black-text"><%= room.exp_years %>年</a>
+                  </div>
+                </li>
+
+                <li class="collection-item">
+                  <div>指導歴<a class="secondary-content black-text"><%= room.teach_years %>年</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- review zone -->
+    <div class="row">
+      <!-- 生徒からのレビュー -->
+      <div class="col s12 m6">
+        <%= render "reviews/student_list" %>
+      </div>
+
+      <!-- 先生からのレビュー -->
+      <div class="col s12 m6">
+        <%= render "reviews/teacher_list" %>
+      </div>
+    </div>
+
+
   </div>
 
-  <div class="col m9 s12">
-    
+  <div id="test2" class="col s12">
+    <div class="row">
+      <h5>動画</h5>
+      <% @rooms.each do |room| %>
+        <% unless room.youtube1.blank? %>
+          <% @youtube1_embed = room.youtube1.gsub("watch?v=","embed/") %>
+          <div class="col s6 m4 ">
+            <div class="card">
+              <div class="video-container" >
+                <iframe src="<%= @youtube1_embed %>" frameborder="0" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>  
+        <% end %>
+        <% unless room.youtube2.blank? %>
+          <% @youtube2_embed = room.youtube2.gsub("watch?v=","embed/") %>
+          <div class="col s6 m4 ">
+            <div class="card">
+              <div class="video-container" >
+                <iframe src="<%= @youtube2_embed %>" frameborder="0" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>  
+        <% end %>
+        <% unless room.youtube3.blank? %>
+          <% @youtube3_embed = room.youtube3.gsub("watch?v=","embed/") %>
+          <div class="col s6 m4 ">
+            <div class="card">
+              <div class="video-container" >
+                <iframe src="<%= @youtube3_embed %>" frameborder="0" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>  
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="row">
+      <h5>写真</h5>
+      <% @rooms.each do |room| %>
+      <%= room.roomphotos[0] %>
+        <% room.roomphotos.each do |photo| %>
+          <div class="col s6 m4 ">
+            <div class="card">
+              <%= image_tag photo.image.url(:medium) ,class: "responsive-img materialboxed" %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="test3" class="col s12">
+    <div class="row">
+      <% @rooms.each do |room| %>
+        <%= link_to room_path(room), class: "black-text" do %>
+          <div class="card">
+            <div class="card-content">
+              <div class="row">
+                <div class="col s12 m4 button-center">
+                  <% unless room.roomphotos[0].blank? %>
+                    <%= image_tag room.roomphotos[0].image.url(:medium) ,class: "responsive-img Reneeistsehrcool" %>
+                  <% else %>
+                    <i class="material-icons large">music_note</i>
+                  <% end %>
+                </div>
+                <div class="col s12 m8">
+                  <span class="card-title"><%= room.instrument %>
+                    <% if room.teacher_auth %> 
+                      <i class="material-icons deep-orange-text text-darken-4 medium">stars</i>
+                    <% end %>
+                  </span>
+                  <table class="centered">
+                    <tbody>
+                      <tr>
+                        <td>経験年数</td>
+                        <td><%= room.exp_years %>年</td>
+                      </tr>
+                      <tr>
+                        <% unless room.teach_years.blank? %>
+                          <td>指導歴</td>
+                          <td><%= room.teach_years %>年<td>
+                        <% end %>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="test4" class="col s12">
+    <div class="row">
+      <% unless @user.twitter.blank? %>
+        <div class = "col s12 m6">
+          <div class="card ">
+            <div class="card-content">
+              <span class="card-title">Twitter</span>
+              <a class="twitter-timeline" data-height="400" href="https://twitter.com/<%= @user.twitter %>">Tweets by <%= @user.twitter %></a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% unless @user.webpage.blank? %>
+        <div class = "col s12 m6">
+          <div class="card">
+            <div class="card ">
+              <div class="card-content">
+                <span class="card-title">Webpage</span>
+                <%= link_to  @user.webpage , @user.webpage %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% unless @user.blog.blank? %>
+        <div class = "col s12 m6">
+          <div class="card">
+            <div class="card ">
+              <div class="card-content">
+                <span class="card-title">Blog</span>
+                <%= link_to  @user.blog , @user.blog %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
+
+
+
+
+
+
+<script>
+  $(document).ready(function(){
+    $('.tabs').tabs();
+  });
+
+  $(document).ready(function(){
+    $('.materialboxed').materialbox();
+  });
+</script>

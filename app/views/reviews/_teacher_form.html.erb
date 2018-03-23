@@ -1,0 +1,49 @@
+<!-- Trigger the modal with a button -->
+<button class="btn waves-effect waves-light modal-trigger" data-target = "modal_<%= reservation.id %>" >生徒をレビューしよう！<i class="material-icons right">star</i></button>
+
+<!-- Modal -->
+<div id="modal_<%= reservation.id %>" class="modal">
+  <!-- Modal content-->
+  <div class="modal-content">
+    <button type="button" class="modal-close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title text-left">生徒をレビューしよう！</h4>
+    reservation.id<%= reservation.id %>
+      reservation.room.id <%= reservation.room.id %>
+    <%= form_for current_user.teacher_reviews.new do |f| %>
+      <div class="button-center">
+        <div id="stars"></div>
+      </div>
+      <div class="input-field">
+        <%= f.text_area :comment, rows: 3, id: "teacher_comment", class: "materialize-textarea" %>
+        <label for="teacher_comment">コメント</label>
+      </div>
+      reservation.id<%= reservation.id %>
+      reservation.room.id <%= reservation.room.id %>
+
+      <%= f.hidden_field :room_id, value: reservation.room.id %>
+      <%= f.hidden_field :reservation_id, value: reservation.id %>
+      <%= f.hidden_field :teacher_id, value: reservation.user.id %>
+
+      <div class="row">
+        <div class="button-center">
+          <button class="btn waves-effect waves-light grey darken-1" type="submit" name="action" >レビューする
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('.modal').modal();
+
+
+  $('#stars').raty({
+    path: '/assets',
+    scoreName: 'teacher_review[star]',
+    score: 3
+  });
+    });
+</script>

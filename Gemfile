@@ -20,6 +20,7 @@ gem 'materialize-sass', '~> 1.0.0.alpha4'
 gem 'devise', '~> 4.2'
 gem "paperclip", '~> 5.1.0'
 gem 'dropzonejs-rails'
+gem 'carrierwave', '~> 1.0'
 
 
 group :development, :test do

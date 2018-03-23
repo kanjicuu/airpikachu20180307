@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  comment: MyText
+  star: 1
+  room: one
+  reservation: one
+  student: one
+  teacher: one
+  type: 
+
+two:
+  comment: MyText
+  star: 1
+  room: two
+  reservation: two
+  student: two
+  teacher: two
+  type: 

@@ -1,0 +1,40 @@
+<!-- ここの外側では、row と　col の大きさを指定 -->
+
+<ul class="collection with-header">
+  <li class="collection-header"><h5>生徒からのレビュー(<%= @student_reviews.count %>)件</h5></li> 
+
+  <% if @student_reviews.count == 0 %>
+    <li class="collection-item">まだレビューがありません。</li>
+  <% else %>
+
+    <% @student_reviews.order(id: :desc).each do |r| %>
+      <li class="collection-item avatar">
+        <%= image_tag avatar_url(r.student), class: "circle" %>
+        <span class="title"><%= r.student.fullname %></span>
+        <p><%= r.comment %><br>
+          <%= r.created_at.strftime("%Y年%m月%d日") %>
+        </p>
+        <a class="secondary-content">
+          <div id="star_<%= r.id %>"></div>
+          <br>
+                   
+          <!-- もしコメントしているユーザーと現在のユーザーが同じならコメント削除ボタンを表示 -->
+          <% if current_user && current_user == r.student %>
+            <span class="pull-right">
+              <%= link_to r, method: :delete, data: {confirm: "レビューを削除してよろしいですか？"} do %>
+                  <i class="material-icons">delete</i>
+              <% end %>
+            </span>
+          <% end %>
+        </a>
+        <script>
+          $('#star_<%= r.id %>').raty({
+            path: '/assets',
+            readOnly: true,
+            score: <%= r.star %>
+          });
+        </script>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
