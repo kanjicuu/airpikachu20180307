@@ -43,4 +43,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/search' => 'pages#search'
+
+
 end

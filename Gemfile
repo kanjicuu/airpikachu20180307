@@ -21,6 +21,8 @@ gem 'devise', '~> 4.2'
 gem "paperclip", '~> 5.1.0'
 gem 'dropzonejs-rails'
 gem 'carrierwave', '~> 1.0'
+gem 'ransack', "~> 1.7"
+gem 'jquery-ui-rails', '~> 5.0'
 
 
 group :development, :test do

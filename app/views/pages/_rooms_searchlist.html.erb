@@ -1,0 +1,22 @@
+<% if @arrRooms %>
+  <h3>yes</h3>
+  <%= @arrRooms.length %>
+    <% @arrRooms.each do |room| %>
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading preview">
+            <%= link_to room do %>
+              <%= image_tag room.cover_photo(:medium) %>
+            <% end %>
+          </div>
+          <div class="panel-body">
+            <%= room.user.fullname %><br/>
+            <%= room.instrument %><br/>
+            <%= room.price %>円
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <h3>no</h3>
+<% end %>

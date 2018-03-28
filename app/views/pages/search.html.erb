@@ -1,0 +1,109 @@
+<div class="row">
+  <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">search</i>検索</div>
+      <div class="collapsible-body">
+        <%= search_form_for @search, url: search_path, remote: true  do |f| %>
+          <div class="row">
+            <!-- 左側 -->
+            
+            <div class="col s12 l4">
+              <div class="col s12">
+                <label>price</label>
+              </div>
+              <div class="col s12">
+                <div id="test-slider"></div>
+              </div>
+              <div class="inpu¥][t-field col s12">
+                <%= f.text_field :price_gteq, class: "" %>
+              </div>
+              <div class="input-field col s12">
+                <%= f.text_field :price_lteq, class: "" %>
+              </div>
+            </div>
+
+            <!-- 真ん中 -->
+            <div class="col s12 l4">
+              <div class="col s12">
+                <label>経験歴・指導歴</label>
+              </div>
+              <div class="input-field col s12">
+                <%= f.select :exp_years_gteq, [["1年", 1], ["2年", 2],["3年", 3], ["4年", 4],["5年", 5], ["6年", 6],["7年", 7], ["8年", 8],["9年", 9], ["10年", 10],["11年以上", 11]], prompt: "選択してください" %>
+                <label>経験歴</label>
+              </div>
+              <div class="input-field col s12">
+                <%= f.select :teach_years_gteq, [["1年", 1], ["2年", 2],["3年", 3], ["4年", 4],["5年", 5], ["6年", 6],["7年", 7], ["8年", 8],["9年", 9], ["10年", 10],["11年以上", 11]], prompt: "選択してください" %>
+                <label>指導歴</label>
+              </div>
+            </div>
+
+            <!-- 右側 -->
+            <div class="col s12 l4">
+              <div class="col s12">
+                <label>指導レベル</label>
+              </div>
+              <p class="col s12">
+                <label>
+                  <%= check_box_tag "q[begginer_eq]", true  , class: "filled-in" %>
+                  <span>初心者</span>
+                </label>
+              </p>
+              <p class="col s12">
+                <label>
+                  <%= check_box_tag "q[middle_eq]", true  , class: "filled-in"%>
+                  <span>中級者</span>
+                </label>
+              </p>
+              <p class="col s12">
+                <label>
+                  <%= check_box_tag "q[expert_eq]", true  , class: "filled-in"%>
+                  <span>上級者</span>
+                </label>
+              </p>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="button-center col s4">
+              <%= f.submit "検索", class: "btn btn-normal btn-block" %>
+            </div>
+          </div>
+        <% end %>
+
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="row" id="room_listing">
+  <%= render partial: "pages/rooms_searchlist", locals: {rooms: @arrRooms} %>
+</div>
+
+
+<script>
+  var slider = document.getElementById('test-slider');
+  noUiSlider.create(slider, {
+   start: [20, 80],
+   connect: true,
+   step: 1,
+   orientation: 'horizontal', // 'horizontal' or 'vertical'
+   range: {
+     'min': 0,
+     'max': 100
+   },
+   format: wNumb({
+     decimals: 0
+   })
+  });
+</script>
+
+
+<script>
+  
+    $('.collapsible').collapsible();
+
+
+    $('select').formSelect();
+
+</script>

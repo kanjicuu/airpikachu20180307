@@ -1,3 +1,46 @@
+<%= search_form_for @q, url: search_path, method: :get do |f| %>
+  <div class="row">
+    <div class="button-center">
+      <div class="input-field col s6">
+        <%= f.text_field :instrument,  placeholder:"楽器名、名前を検索しよう！" %>
+      </div>
+      <div class="col s4">
+        <%= f.submit "Search", class: "btn btn-normal btn-block" %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+  <% @rooms.each do |room| %>
+    <div class="col s12 m4">
+      <div class="card">
+        <div class="card-image">
+          <%= link_to room do %>
+            <%= image_tag(room.cover_photo(:medium) ,:class => "resize_for_list")  %>
+          <% end %>
+        </div>
+        <div class="card-content">
+          <p><%= room.user.fullname %><br/>
+            <%= room.instrument %><br/>
+            <%= room.price %>円</p>
+            <div id="star_<%= room.id %>"></div>
+            <%= room.average_rating %>
+        </div> 
+      </div>
+    </div>
+    <script>
+      $('#star_<%= room.id %>').raty({
+        path: '/assets',
+        readOnly: true,
+        score: <%= room.average_rating %>
+      });
+    </script>
+  <% end %>
+</div>
+
+
+<!-- piano start -->
 <div class="row">
   <div id="contenedor">
     <div class="note center white_bold teal lighten-4" id="0">S</div>
@@ -23,6 +66,9 @@
   <audio class="sonidos" src="//goo.gl/MS9HTp"></audio>
   <audio class="sonidos" src="//goo.gl/ANMMwn"></audio>  
 </div>
+<!-- piano start -->
+
+
 
 <div class="parallax-container">
   <div class="parallax"><img src="/guitar-3214415_1280.jpg"></div>
@@ -36,6 +82,7 @@
 <div class="parallax-container">
   <div class="parallax"><img src="/guitar-3214415_1280.jpg"></div>
 </div>
+
 
 
 
